@@ -1,5 +1,6 @@
 const contactData = {
-  insta: '@crac_bitspilani',
+  insta: 'crac_bitspilani',
+  phone: 9892500584,
   mail: 'f20201798@bits.pilani-bits.ac.in',
 };
 
