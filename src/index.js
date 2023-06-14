@@ -1,6 +1,8 @@
 const express = require('express');
+const session = require('express-session');
 const cors = require('cors');
 const app = express();
+require('dotenv').config();
 
 const PORT = 3001;
 
@@ -10,6 +12,14 @@ app.use(express.json());
 app.use(
   express.urlencoded({
     extended: false,
+  })
+);
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
   })
 );
 
