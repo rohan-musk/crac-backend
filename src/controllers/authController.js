@@ -9,7 +9,9 @@ exports.googleLogin = async (req, res, next) => {
     audience: process.env.GOOGLE_CLIENT_ID,
   });
   const { email, email_verified, name, picture } = ticket.getPayload();
-  const userData = { email, email_verified, name, picture };
+  const admin = 'true';
+  const crac_member = 'true';
+  const userData = { email, email_verified, name, picture, crac_member, admin };
   if (email_verified) {
     if (req.session.user) {
       return res.send(req.session.user);
