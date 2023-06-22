@@ -8,5 +8,6 @@ const authController = require('../controllers/authController');
 // });
 
 router.get('/googlelogin', authController.googleLogin);
+router.get('/isloggedin', authController.isLoggedIn);
 
 module.exports = router;

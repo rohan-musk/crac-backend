@@ -12,6 +12,7 @@ exports.googleLogin = async (req, res, next) => {
   const admin = 'true';
   const crac_member = 'true';
   const userData = { email, email_verified, name, picture, crac_member, admin };
+  console.log(req.session);
   if (email_verified) {
     if (req.session.user) {
       return res.send(req.session.user);
@@ -25,6 +26,19 @@ exports.googleLogin = async (req, res, next) => {
     //   status: 'success',
     //   data: { userData },
     // });
+  }
+  return res.status(401).send({
+    status: 'failed',
+    data: { message: 'User not authorised' },
+  });
+};
+
+exports.isLoggedIn = async (req, res, next) => {
+  if (req.session.user) {
+    return res.status(200).send({
+      status: 'success',
+      data: req.session.user,
+    });
   }
   return res.status(401).send({
     status: 'failed',
