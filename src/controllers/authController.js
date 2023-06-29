@@ -10,25 +10,33 @@ exports.googleLogin = async (req, res, next) => {
     audience: process.env.GOOGLE_CLIENT_ID,
   });
   const { email, email_verified, name, picture } = ticket.getPayload();
-  const admin = 'true';
-  const crac_member = 'true';
+  const admin = true;
+  const crac_member = true;
   const id = 'rohan';
-  const userData = {
-    email,
-    email_verified,
-    name,
-    picture,
-    crac_member,
-    admin,
-    id,
-  };
+
   if (email_verified) {
     if (req.session.user) {
       return res.send(req.session.user);
     } else {
-      req.session.user = {
-        userData,
-      };
+      const userData = await UserData.findOne({ $or: [{ email }, { id }] });
+      if (userData) {
+        req.session.user = {
+          userData,
+        };
+      } else {
+        const userData = await UserData.create({
+          email,
+          email_verified,
+          name,
+          picture,
+          crac_member,
+          admin,
+          id,
+        });
+        req.session.user = {
+          userData,
+        };
+      }
       return res.send(req.session);
     }
     // return res.status(200).send({
