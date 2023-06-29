@@ -1,36 +1,35 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const userDataSchema = new Schema({
+const userDataSchema = new mongoose.Schema({
   email: {
-    type: mongoose.SchemaType.String,
+    type: mongoose.SchemaTypes.String,
     required: true,
     unique: true,
   },
   email_verified: {
-    type: mongoose.SchemaType.Boolean,
+    type: mongoose.SchemaTypes.Boolean,
     required: true,
   },
   name: {
-    type: mongoose.SchemaType.String,
+    type: mongoose.SchemaTypes.String,
     required: true,
   },
   picture: {
-    type: mongoose.SchemaType.String,
+    type: mongoose.SchemaTypes.String,
     required: true,
   },
   crac_member: {
-    type: mongoose.SchemaType.Boolean,
+    type: mongoose.SchemaTypes.Boolean,
     required: true,
     default: false,
   },
   admin: {
-    type: mongoose.SchemaType.Boolean,
+    type: mongoose.SchemaTypes.Boolean,
     required: true,
     default: false,
   },
   id: {
-    type: mongoose.SchemaType.String,
+    type: mongoose.SchemaTypes.String,
     required: true,
     unique: true,
   },

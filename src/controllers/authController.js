@@ -1,6 +1,7 @@
 const { response } = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const UserData = require('../models/userDataModel');
 
 exports.googleLogin = async (req, res, next) => {
   const { tokenId } = req.query;
