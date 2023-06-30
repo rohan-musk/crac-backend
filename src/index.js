@@ -38,9 +38,7 @@ app.use((req, res, next) => {
 app.listen(PORT, () => console.log(`running express server on ${PORT}`));
 
 mongoose
-  .connect(
-    'mongodb+srv://rohan:GvdqLUB3gkHYaYZ7@crac.xkibi01.mongodb.net/CrACdev?retryWrites=true&w=majority'
-  )
+  .connect(process.env.MONGO_DB_CLIENT)
   .then(console.log('Connected to mongoDB'))
   .catch((err) => console.log(err));
 

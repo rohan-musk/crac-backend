@@ -14,6 +14,7 @@ exports.googleLogin = async (req, res, next) => {
   const admin = true;
   const crac_member = true;
   let id = '';
+  const role = '';
 
   let idGenerated = false;
   while (!idGenerated) {
@@ -39,6 +40,7 @@ exports.googleLogin = async (req, res, next) => {
           crac_member,
           admin,
           id,
+          role,
         });
         req.session.user = {
           userData,

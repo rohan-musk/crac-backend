@@ -33,6 +33,9 @@ const userDataSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  role: {
+    type: mongoose.SchemaTypes.String,
+  },
 });
 
 const UserData = mongoose.model('userdatas', userDataSchema);
