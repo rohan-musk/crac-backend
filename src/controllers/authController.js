@@ -2,6 +2,7 @@ const { response } = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const UserData = require('../models/userDataModel');
+const idGenerator = require('../utils/idGenerator');
 
 exports.googleLogin = async (req, res, next) => {
   const { tokenId } = req.query;
@@ -12,7 +13,13 @@ exports.googleLogin = async (req, res, next) => {
   const { email, email_verified, name, picture } = ticket.getPayload();
   const admin = true;
   const crac_member = true;
-  const id = 'rohan';
+  let id = '';
+
+  let idGenerated = false;
+  while (!idGenerated) {
+    id = idGenerator();
+    idGenerated = !(await UserData.exists({ id: id }));
+  }
 
   if (email_verified) {
     if (req.session.user) {
