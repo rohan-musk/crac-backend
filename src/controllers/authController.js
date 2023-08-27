@@ -1,8 +1,8 @@
 const { response } = require('express');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-const UserData = require('../models/userDataModel');
 const ArtistData = require('../models/artistDataModel');
+const UserData = require('../models/userDataModel');
 const idGenerator = require('../utils/idGenerator');
 
 exports.googleLogin = async (req, res, next) => {
@@ -28,7 +28,6 @@ exports.googleLogin = async (req, res, next) => {
       return res.send(req.session.user);
     } else {
       const userData = await UserData.findOne({ $or: [{ email }, { id }] });
-      const ArtistData = await ArtistData.findOne({ id });
       if (userData) {
         req.session.user = {
           userData,
@@ -48,7 +47,10 @@ exports.googleLogin = async (req, res, next) => {
           userData,
         };
       }
-      if (!ArtistData) {
+      const artistData = await ArtistData.findOne({
+        id: req.session.user.userData.id,
+      });
+      if (!artistData) {
         ArtistData.create({
           id: req.session.user.userData.id,
         });
