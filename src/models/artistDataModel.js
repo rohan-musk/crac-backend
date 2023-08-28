@@ -12,6 +12,9 @@ const artistDataSchema = new mongoose.Schema({
   mail: {
     type: mongoose.SchemaTypes.String,
   },
+  aboutMe: {
+    type: mongoose.SchemaTypes.String,
+  },
 });
 
 const ArtistData = mongoose.model('artistdatas', artistDataSchema);
