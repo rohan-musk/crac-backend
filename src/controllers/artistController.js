@@ -16,12 +16,10 @@ exports.editArtistAbout = async (req, res, next) => {
     { aboutMe: req.body.aboutme }
   );
   if (data)
-    return res
-      .status(200)
-      .send({
-        status: 'success',
-        data: { message: 'Succesfully updated about' },
-      });
+    return res.status(200).send({
+      status: 'success',
+      data: { message: 'Succesfully updated about' },
+    });
   else
     return res.status(400).send({
       status: 'failed',
@@ -30,5 +28,39 @@ exports.editArtistAbout = async (req, res, next) => {
       },
     });
 };
-exports.editArtistInsta = async (req, res, next) => {};
-exports.editArtistEmail = async (req, res, next) => {};
+exports.editArtistInsta = async (req, res, next) => {
+  const data = await ArtistData.findOneAndUpdate(
+    { id: req.params.id },
+    { instaID: req.body.insta }
+  );
+  if (data)
+    return res.status(200).send({
+      status: 'success',
+      data: { message: 'Succesfully updated Instagram ID' },
+    });
+  else
+    return res.status(400).send({
+      status: 'failed',
+      data: {
+        message: 'Could not change data cause no artist with that ID exists.',
+      },
+    });
+};
+exports.editArtistEmail = async (req, res, next) => {
+  const data = await ArtistData.findOneAndUpdate(
+    { id: req.params.id },
+    { mail: req.body.mail }
+  );
+  if (data)
+    return res.status(200).send({
+      status: 'success',
+      data: { message: 'Succesfully updated Email ID' },
+    });
+  else
+    return res.status(400).send({
+      status: 'failed',
+      data: {
+        message: 'Could not change data cause no artist with that ID exists.',
+      },
+    });
+};
